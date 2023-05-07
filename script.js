@@ -1,30 +1,45 @@
 "use strict"
 
+/** Setting individual values in object */
 var time = {
-    mm: 0,
-    ss: 0,
-    ms: 0
+    hh: '00',
+    mm: '00',
+    ss: '00',
+    ms: '000'
 }
 
-let btn1 = document.getElementById("start-btn");
-let btn2 = document.getElementById("stop-btn");
-let btn3 = document.getElementById("reset-btn");
+let startBtn = document.getElementById("start-btn");
+let stopBtn = document.getElementById("stop-btn");
+let resetBtn = document.getElementById("reset-btn");
 
+/** Sync html values with these */
 let hhText = document.getElementById("hh");
 let mmText = document.getElementById("mm");
 let ssText = document.getElementById("ss");
 let msText = document.getElementById("ms");
 
+
 var interval = null
 
+/** iteration counts used for interval logic */
 var hhIteration = 0
 var mmIteration = 0
 var ssIteration = 0
 var msIteration = 0
 
+stopBtn.disabled = true
+
 function start() {
-    console.log('hex: ', time)
+
+    startBtn.disabled = true
+    stopBtn.disabled = false
+
     let newTime = { ...time }
+
+    /** Timer incrementing the milliseconds value in steps of 5 
+     * Then subsequent max limits for seconds is 60, minutes = 60  and hours = 24 
+     * until the timer is reset automatically
+    */
     interval = setInterval(() => {
         msIteration += 5
         if (msIteration === 1000) {
@@ -35,11 +50,11 @@ function start() {
                 ssIteration = 0
 
                 mmIteration++
-                if (mmIteration === 1) {
+                if (mmIteration === 60) {
                     mmIteration = 0
-                    
+
                     hhIteration++
-                    if(hhIteration === 24) {
+                    if (hhIteration === 24) {
                         hhIteration = 0
                         clearInterval(interval)
                     }
@@ -50,12 +65,11 @@ function start() {
 
         newTime = {
             ...time,
-            mm: mmIteration,
-            hh: hhIteration,
-            ss: ssIteration,
+            hh: modifySingleDigit(hhIteration),
+            mm: modifySingleDigit(mmIteration),
+            ss: modifySingleDigit(ssIteration),
             ms: msIteration,
         }
-        console.log('hex: ', newTime)
 
         hhText.innerHTML = newTime.hh
         mmText.innerHTML = newTime.mm
@@ -68,22 +82,44 @@ function start() {
 
 function stop() {
     clearInterval(interval)
+    startBtn.innerText = "Resume"
+    startBtn.disabled = false
+    stopBtn.disabled = true
+
 }
 
 function reset() {
+    clearInterval(interval)
+    interval = null
+    startBtn.innerText = "Start";
+    startBtn.disabled = false
+    stopBtn.disabled = true
+    time = {
+        hh: '00',
+        mm: '00',
+        ss: '00',
+        ms: "000"
+    }
+    hhText.innerHTML = time.hh
+    mmText.innerHTML = time.mm
+    ssText.innerHTML = time.ss
+    msText.innerHTML = time.ms
+
+    hhIteration = 0
+    mmIteration = 0
+    ssIteration = 0
+    msIteration = 0
 
 }
 
 //add event listener to all buttons
-btn1.addEventListener("click", start);
-btn2.addEventListener("click", stop);
-btn3.addEventListener("click", reset);
+startBtn.addEventListener("click", start);
+stopBtn.addEventListener("click", stop);
+resetBtn.addEventListener("click", reset);
 
-var returnobj = (function () {
-    // document.addEventListener('click', (x) => {
-    //     console.log('hex: ', x)
-    // })
-})()
+function modifySingleDigit(num) {
+    if (num < 10) return "0" + num
+}
 
 
 
