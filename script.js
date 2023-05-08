@@ -39,7 +39,7 @@ function start() {
     let newTime = { ...time }
 
     /** Timer incrementing the milliseconds value in steps of 5 
-     * Then subsequent max limits for seconds is 60, minutes = 60  and hours = 24 
+     * Then subsequent max limits for seconds is 60, minutes = 60  and hours = 24 in nested blocks
      * until the timer is reset automatically
     */
     interval = setInterval(() => {
@@ -123,6 +123,7 @@ startBtn.addEventListener("click", start);
 stopBtn.addEventListener("click", stop);
 resetBtn.addEventListener("click", reset);
 
+/** Append 0 before a num, eg. 0 -> '00' */
 function modifySingleDigit(num) {
     if (num < 10) return "0" + num
 }
