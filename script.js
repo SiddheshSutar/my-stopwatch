@@ -18,6 +18,9 @@ let mmText = document.getElementById("mm");
 let ssText = document.getElementById("ss");
 let msText = document.getElementById("ms");
 
+let startBtnSection = document.getElementById("start-col");
+let stopBtnSection = document.getElementById("stop-col");
+let resetBtnSection = document.getElementById("reset-col");
 
 var interval = null
 
@@ -27,14 +30,25 @@ var mmIteration = 0
 var ssIteration = 0
 var msIteration = 0
 
-stopBtn.disabled = true
+stopBtnSection.style.display = "none"
+resetBtnSection.style.display = "none"
 
 function start() {
 
     if(!startBtn && !stopBtn) return
 
-    startBtn.disabled = true
-    stopBtn.disabled = false
+    /** When start is clicked;
+     * 1. hide start button and show stop button
+     * 
+     * 
+     */
+    startBtnSection.style.display = "none"
+
+    stopBtnSection.style.display = "block"
+
+    resetBtnSection.style.display = "block"
+    resetBtn.disabled = true
+
 
     let newTime = { ...time }
 
@@ -87,19 +101,37 @@ function stop() {
 
     clearInterval(interval)
     startBtn.innerText = "Resume"
-    startBtn.disabled = false
-    stopBtn.disabled = true
+    startBtnSection.style.display = "block"
+
+    resetBtnSection.style.display = "block"
+    resetBtn.disabled = false
+
+    stopBtnSection.style.display = "none"
+
 
 }
 
 function reset() {
     if(!stopBtn && !startBtn) return
 
+    // /** Dont proceed for default condition */
+    // // if(
+    // //     parseInt(time.hh) === 0 &&
+    // //     parseInt(time.mm) === 0 &&
+    // //     parseInt(time.ss) === 0 &&
+    // //     parseInt(time.ms) === 0 &&
+    // // ) return
+
     clearInterval(interval)
     interval = null
     startBtn.innerText = "Start";
-    startBtn.disabled = false
-    stopBtn.disabled = true
+    startBtnSection.style.display = "block"
+
+    stopBtnSection.style.display = "none"
+
+    resetBtnSection.style.display = "none"
+    resetBtn.disabled = true
+
     time = {
         hh: '00',
         mm: '00',

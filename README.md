@@ -11,3 +11,7 @@ ABOUT THIS PROJECT-:
 
 # How to run?
 For VS Code, use the extension 'Live Server' for better simulation and hot reloading
+
+# Whats new? ( IMPORTANT )
+Here there are no three default buttons - Start-Stop-Reset being shown altogether in UI.
+Since, Start and Stop would come in either of their usecases; they have been toggled via javascript.

@@ -59,6 +59,7 @@
 button {
     width: 100%;
     font-family: 'Poppins', sans-serif !important;
+    font-size: 2em;
 }
 
 /* Mui style overrides START*/
