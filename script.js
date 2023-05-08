@@ -31,6 +31,8 @@ stopBtn.disabled = true
 
 function start() {
 
+    if(!startBtn && !stopBtn) return
+
     startBtn.disabled = true
     stopBtn.disabled = false
 
@@ -81,6 +83,8 @@ function start() {
 }
 
 function stop() {
+    if(!stopBtn && !startBtn) return
+
     clearInterval(interval)
     startBtn.innerText = "Resume"
     startBtn.disabled = false
@@ -89,6 +93,8 @@ function stop() {
 }
 
 function reset() {
+    if(!stopBtn && !startBtn) return
+
     clearInterval(interval)
     interval = null
     startBtn.innerText = "Start";
