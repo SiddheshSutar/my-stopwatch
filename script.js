@@ -18,8 +18,6 @@ let mmText = document.getElementById("mm");
 let ssText = document.getElementById("ss");
 let msText = document.getElementById("ms");
 
-let startBtnSection = document.getElementById("start-col");
-let stopBtnSection = document.getElementById("stop-col");
 let resetBtnSection = document.getElementById("reset-col");
 
 var interval = null
@@ -30,7 +28,7 @@ var mmIteration = 0
 var ssIteration = 0
 var msIteration = 0
 
-stopBtnSection.style.display = "none"
+stopBtn.style.display = "none"
 resetBtnSection.style.display = "none"
 
 function start() {
@@ -39,15 +37,11 @@ function start() {
 
     /** When start is clicked;
      * 1. hide start button and show stop button
-     * 
-     * 
+     * 2. hide reset button
      */
-    startBtnSection.style.display = "none"
-
-    stopBtnSection.style.display = "block"
-
-    resetBtnSection.style.display = "block"
-    resetBtn.disabled = true
+    startBtn.style.display = "none"
+    stopBtn.style.display = "block"
+    resetBtnSection.style.display = "none"
 
 
     let newTime = { ...time }
@@ -100,13 +94,14 @@ function stop() {
     if(!stopBtn && !startBtn) return
 
     clearInterval(interval)
+    /**
+     * show Resume as well as Reset
+     */
     startBtn.innerText = "Resume"
-    startBtnSection.style.display = "block"
+    startBtn.style.display = "block"
+    stopBtn.style.display = "none"
 
     resetBtnSection.style.display = "block"
-    resetBtn.disabled = false
-
-    stopBtnSection.style.display = "none"
 
 
 }
@@ -114,23 +109,16 @@ function stop() {
 function reset() {
     if(!stopBtn && !startBtn) return
 
-    // /** Dont proceed for default condition */
-    // // if(
-    // //     parseInt(time.hh) === 0 &&
-    // //     parseInt(time.mm) === 0 &&
-    // //     parseInt(time.ss) === 0 &&
-    // //     parseInt(time.ms) === 0 &&
-    // // ) return
-
     clearInterval(interval)
     interval = null
-    startBtn.innerText = "Start";
-    startBtnSection.style.display = "block"
 
-    stopBtnSection.style.display = "none"
+    /**
+     * reset all to show Start button
+     */
+    startBtn.innerText = "Start";
+    startBtn.style.display = "block"
 
     resetBtnSection.style.display = "none"
-    resetBtn.disabled = true
 
     time = {
         hh: '00',
@@ -159,6 +147,3 @@ resetBtn.addEventListener("click", reset);
 function modifySingleDigit(num) {
     if (num < 10) return "0" + num
 }
-
-
-

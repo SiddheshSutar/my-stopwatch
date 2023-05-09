@@ -36,6 +36,7 @@
     box-shadow: 0 0 15px 0px var(--clr-primary-disabled), inset 0 0 16px -4px var(--clr-secondary);
     border-radius: 10px;
     padding-bottom: 20px;
+    background-color: #f9f9f9;
 }
 
 .sw-title {
